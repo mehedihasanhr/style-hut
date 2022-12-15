@@ -6,9 +6,16 @@ interface ISliders {
   children: React.ReactNode | React.ReactNode[]
   prevButton?: (prevSlide: (e: any) => void, style: string) => React.ReactNode
   nextButton?: (nextSlide: (e: any) => void, style: string) => React.ReactNode
+  autoPlay?: boolean
 }
 
-const Sliders = ({ children, prevButton, nextButton, ...props }: ISliders) => {
+const Sliders = ({
+  children,
+  prevButton,
+  nextButton,
+  autoPlay = true,
+  ...props
+}: ISliders) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [prev, setPrev] = React.useState(-1)
   const [next, setNext] = React.useState(1)
@@ -19,7 +26,7 @@ const Sliders = ({ children, prevButton, nextButton, ...props }: ISliders) => {
 
   // auto play slider
   React.useEffect(() => {
-    if (!jump || !touch) {
+    if (!jump || (!touch && autoPlay)) {
       const interval = setInterval(() => {
         setPrev(activeIndex)
         setActiveIndex(next)

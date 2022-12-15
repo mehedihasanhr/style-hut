@@ -8,6 +8,7 @@ import Layout from '../../components/Layout/Layout'
 import ProductDescription from '../../sections/ProductDescription'
 import ProductDetails from '../../sections/ProductDetails'
 import ProductReviews from '../../sections/ProductReviews'
+import RelatedProducts from '../../sections/RelatedProducts'
 
 const ProductDetail = (props: any) => {
   return (

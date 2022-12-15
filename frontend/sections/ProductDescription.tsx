@@ -3,6 +3,7 @@ import Tabs from '../components/Tabs'
 import SpecificationTable from './SpecificationTable'
 
 const ProductDescription = () => {
+  const [showAllDescription, setShowAllDescription] = React.useState(false)
   return (
     <section>
       <div className="container border-t border-dashed py-5">
@@ -10,7 +11,11 @@ const ProductDescription = () => {
           <h5>Product Specification</h5>
           <Tabs className="mt-3">
             <Tabs.Pannel label="Description">
-              <p className="text-sm text-gray-700">
+              <p
+                className={`text-xs md:text-sm text-gray-500 ${
+                  showAllDescription ? '' : 'line-clamp-[10]'
+                }`}
+              >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
                 mollis quam purus, et euismod quam maximus et. Vestibulum
                 iaculis neque ac ligula pretium, ac posuere ex convallis. Donec
@@ -53,6 +58,9 @@ const ProductDescription = () => {
                 volutpat. Sed hendrerit gravida elit, vitae cursus nisi. Aliquam
                 porttitor mauris eget neque mollis dictum.
               </p>
+              <span className="block text-xs font-medium mt-2 text-gray-600">
+                Read More...
+              </span>
             </Tabs.Pannel>
 
             <Tabs.Pannel label="Specification">

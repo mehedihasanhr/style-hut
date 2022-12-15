@@ -1,6 +1,6 @@
 const SpecificationTable = ({ data }: any) => {
   return (
-    <table className="table-auto w-1/2 border-collapse">
+    <table className="table-auto w-full lg:w-3/4 xl:w-1/2 border-collapse">
       <tbody>
         {[...Array(10)].map((_, i) => (
           <TableRow
@@ -20,10 +20,10 @@ export default SpecificationTable
 const TableRow = ({ title, desc, even }: any) => {
   return (
     <tr className={`${even ? 'bg-[#fafbfd]' : ''}`}>
-      <td className="border border-gray-100 py-2 px-3 text-sm text-gray-500">
+      <td className="border border-gray-100 py-2 px-3 text-xs md:text-sm text-gray-500">
         {title}
       </td>
-      <td className="border border-gray-100 py-2 px-3 text-sm text-gray-500">
+      <td className="border border-gray-100 py-2 px-3 text-xs md:text-sm text-gray-500">
         {desc}
       </td>
     </tr>
