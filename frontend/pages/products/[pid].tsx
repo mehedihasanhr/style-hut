@@ -5,12 +5,16 @@ import {
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import Layout from '../../components/Layout/Layout'
+import ProductDescription from '../../sections/ProductDescription'
 import ProductDetails from '../../sections/ProductDetails'
+import ProductReviews from '../../sections/ProductReviews'
 
 const ProductDetail = (props: any) => {
   return (
     <Layout>
       <ProductDetails />
+      <ProductDescription />
+      <ProductReviews />
     </Layout>
   )
 }
