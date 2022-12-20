@@ -83,6 +83,8 @@ const Pagination = ({
             </span>
           )
         }
+
+        {/* next page */}
         <NextPage
           disabled={currentPage === totalPages}
           onClick={() => onPageChange && onPageChange(currentPage + 1)}

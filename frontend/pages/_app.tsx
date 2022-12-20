@@ -3,6 +3,8 @@ import type { AppProps } from 'next/app'
 import { Inter } from '@next/font/google'
 import '../styles/uicons-regular-rounded/css/uicons-regular-rounded.css'
 import '../styles/uicons-solid-straight/css/uicons-solid-straight.css'
+import '../styles/uicons-solid-rounded/css/uicons-solid-rounded.css'
+import '../styles/uicons-solid-straight/css/uicons-solid-straight.css'
 
 const inter = Inter({ subsets: ['latin'] })
 

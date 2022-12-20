@@ -7,6 +7,7 @@ interface TProps {
   options: { title: string; val: string }[]
   value: string
   optActiveClass?: string
+  renderIcon?: () => React.ReactNode
   iconClass?: string
   onSelect: (val: string) => void
 }
@@ -19,6 +20,7 @@ const SelectionInput = ({
   iconClass,
   className,
   optActiveClass,
+  renderIcon,
   ...props
 }: React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -73,9 +75,13 @@ const SelectionInput = ({
           }}
         />
         <span className="block absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none">
-          <span className={`-mb-1 ${iconClass}`}>
-            <i className="fi fi-rr-angle-small-down" />
-          </span>
+          {renderIcon ? (
+            renderIcon()
+          ) : (
+            <span className={`-mb-1 ${iconClass}`}>
+              <i className="fi fi-rr-angle-small-down" />
+            </span>
+          )}
         </span>
       </div>
       <div
@@ -86,7 +92,7 @@ const SelectionInput = ({
           show ? 'h-auto' : 'h-0 overflow-hidden'
         }`}
       >
-        <div className="p-2 max-h-[300px] overflow-hidden hover:overflow-y-auto scrollbar">
+        <div className="max-h-[300px] overflow-hidden hover:overflow-y-auto scrollbar">
           <ul>
             {options?.map((opt, index) => (
               <li

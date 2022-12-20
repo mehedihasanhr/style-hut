@@ -143,7 +143,7 @@ const Navbar = () => {
             </Link>
 
             <Link
-              href="/"
+              href="/carts"
               className="flex text-slate-700 space-x-2 group select-none"
             >
               <div className="flex items-center justify-center mt-1">
