@@ -1,0 +1,37 @@
+{
+  "name": "style-hut",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mehedihasanhr/style-hut.git",
+  "author": "Md Mehedi Hasan <mehedihasan.hr.324@gmail.com>",
+  "homepage": "https://github.com/mehedihasanhr/style-hut",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"yarn run start:client\" \"yarn run start:server\"",
+    "start:client": "cd client && yarn start",
+    "start:server": "cd server && yarn run dev",
+    "build": "cd client && yarn run build",
+    "test": "cd client && yarn test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.2.0"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "client": {
+    "extends": "./client/package.json",
+    "private": true
+  },
+  "server": {
+    "extends": "./server/package.json",
+    "private": true
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
