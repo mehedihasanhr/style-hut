@@ -17,7 +17,7 @@ function DropdownToggle({ children, className, ...props }) {
 // * Dropdown Menu
 function DropdownMenu({ children, className, placement = 'bottom-start', ...props }) {
   const [arrowElement, setArrowElement] = React.useState(null)
-  const { open, toggleOpen, referenceElement, popperElement, setPopperElement } = React.useContext(DropdownCtx)
+  const { open, setOpen, toggleOpen, referenceElement, popperElement, setPopperElement } = React.useContext(DropdownCtx)
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: placement,
     modifiers: [
@@ -43,11 +43,29 @@ function DropdownMenu({ children, className, placement = 'bottom-start', ...prop
     ],
   })
 
+  const handleClickOutside = React.useCallback(
+    e => {
+      if (popperElement && referenceElement && !popperElement.contains(e.target) && !referenceElement.contains(e.target)) {
+        setOpen(false)
+      }
+    }, [popperElement, referenceElement, setOpen]
+  )
+
+
+  // * handle click outside
+  React.useEffect(() => {
+    window.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [popperElement, toggleOpen, open])
+
   return (
     <div
       ref={setPopperElement}
-      className={`${className} empty:invisible empty:pointer-events-none`}
-      onMouseUp={toggleOpen}
+      className={`${className} z-[100] empty:invisible empty:pointer-events-none`}
+      onMouseUp={() =>setOpen(false)}
       style={styles.popper}
       {...attributes.popper}
       {...props}
@@ -70,6 +88,7 @@ function Dropdown({ children, className, ...props }) {
     <DropdownCtx.Provider
       value={{
         open,
+        setOpen,
         toggleOpen,
         referenceElement,
         popperElement,
