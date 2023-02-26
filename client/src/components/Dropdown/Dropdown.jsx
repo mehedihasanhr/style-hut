@@ -65,7 +65,7 @@ function DropdownMenu({ children, className, placement = 'bottom-start', ...prop
     <div
       ref={setPopperElement}
       className={`${className} z-[100] empty:invisible empty:pointer-events-none`}
-      onMouseUp={() =>setOpen(false)}
+      onClick={toggleOpen}
       style={styles.popper}
       {...attributes.popper}
       {...props}
