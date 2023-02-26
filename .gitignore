@@ -1,9 +1,5 @@
-/node_modules
-/client/node_modules
-/server/node_modules
+**/node_modules
 
 
 # dotenv environment variables file
-.env
-/client/.env
-/server/.env
+**/.env
