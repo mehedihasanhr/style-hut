@@ -8,9 +8,9 @@ function DropdownToggle({ children, className, ...props }) {
   const { toggleOpen, setReferenceElement } = React.useContext(DropdownCtx)
 
   return (
-    <button ref={setReferenceElement} className={className} onClick={toggleOpen} {...props}>
+    <div ref={setReferenceElement} className={className} onClick={toggleOpen} {...props}>
       {children}
-    </button>
+    </div>
   )
 }
 
@@ -87,7 +87,7 @@ function Dropdown({ children, className, isOpen, ...props }) {
   const [referenceElement, setReferenceElement] = React.useState(null)
   const [popperElement, setPopperElement] = React.useState(null)
 
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = () => (isOpen !== undefined ? null : setOpen(!open))
 
   React.useEffect(() => {
     if (isOpen !== undefined) {
@@ -108,7 +108,7 @@ function Dropdown({ children, className, isOpen, ...props }) {
         setPopperElement,
       }}
     >
-      <div className={`relative ${className}`} {...props}>
+      <div className={`${className}`} {...props}>
         {children}
       </div>
     </DropdownCtx.Provider>
