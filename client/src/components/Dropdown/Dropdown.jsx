@@ -44,13 +44,18 @@ function DropdownMenu({ children, className, placement = 'bottom-start', ...prop
   })
 
   const handleClickOutside = React.useCallback(
-    e => {
-      if (popperElement && referenceElement && !popperElement.contains(e.target) && !referenceElement.contains(e.target)) {
+    (e) => {
+      if (
+        popperElement &&
+        referenceElement &&
+        !popperElement.contains(e.target) &&
+        !referenceElement.contains(e.target)
+      ) {
         setOpen(false)
       }
-    }, [popperElement, referenceElement, setOpen]
+    },
+    [popperElement, referenceElement, setOpen],
   )
-
 
   // * handle click outside
   React.useEffect(() => {
@@ -58,7 +63,7 @@ function DropdownMenu({ children, className, placement = 'bottom-start', ...prop
     return () => {
       window.removeEventListener('mousedown', handleClickOutside)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popperElement, toggleOpen, open])
 
   return (
@@ -77,12 +82,19 @@ function DropdownMenu({ children, className, placement = 'bottom-start', ...prop
 }
 
 // * Dropdown
-function Dropdown({ children, className, ...props }) {
+function Dropdown({ children, className, isOpen, ...props }) {
   const [open, setOpen] = React.useState(false)
   const [referenceElement, setReferenceElement] = React.useState(null)
   const [popperElement, setPopperElement] = React.useState(null)
 
   const toggleOpen = () => setOpen(!open)
+
+  React.useEffect(() => {
+    if (isOpen !== undefined) {
+      setOpen(isOpen)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   return (
     <DropdownCtx.Provider
