@@ -1,10 +1,15 @@
-import Navbar from './Navbar'
+import TopSubNavigation from "./TopSubNavigation";
 
-export default function Layout({ children }) {
-  return (
+const Layout = ({ children }) => {
+  return(
     <>
-      <Navbar />
-      <main>{children}</main>
+      <TopSubNavigation />
+      <main className="container">
+        {children}
+      </main>
     </>
   )
 }
+
+
+export default Layout;
