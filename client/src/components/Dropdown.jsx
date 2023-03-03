@@ -72,7 +72,7 @@ const DropdownMenu = ({ className = '', children, placement = 'bottom-start', of
       ref={setPopperEl}
       style={styles.popper}
       onClick={() => setOpen(false)}
-      className={`min-w-full ${className} ${!open ? 'invisible pointer-events-none' : ''}`}
+      className={`min-w-full z-[999] ${className} ${!open ? 'invisible pointer-events-none' : ''}`}
       {...attributes.popper}
       {...props}
     >
@@ -81,7 +81,7 @@ const DropdownMenu = ({ className = '', children, placement = 'bottom-start', of
   )
 }
 // dropdown
-const Dropdown = ({ children, isOpen }) => {
+const Dropdown = ({ children, isOpen, className = 'relative' }) => {
   const [open, setOpen] = useState(false)
   const [popperEl, setPopperEl] = useState(null)
   const [refEl, setRefEl] = useState(null)
@@ -95,7 +95,7 @@ const Dropdown = ({ children, isOpen }) => {
   }, [isOpen])
 
   return (
-    <div className="relative">
+    <div className={className}>
       <DropdownContext.Provider value={{ open, setOpen, popperEl, setPopperEl, refEl, setRefEl, toggle }}>
         {children}
       </DropdownContext.Provider>

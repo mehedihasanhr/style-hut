@@ -1,19 +1,18 @@
-import Navigation from "./Navigation";
-import TopSubNavigation from "./TopSubNavigation";
+import Navigation from './Navigation'
+import SubNavbar from './SubNavbar'
+import TopSubNavigation from './TopSubNavigation'
 
 const Layout = ({ children }) => {
-   return(
+  return (
     <>
       <header className="border-b border-gray-300">
         <TopSubNavigation />
         <Navigation />
+        <SubNavbar />
       </header>
-      <main className="container">
-        {children}
-      </main>
+      <main className="container">{children}</main>
     </>
   )
 }
 
-
-export default Layout;
+export default Layout
