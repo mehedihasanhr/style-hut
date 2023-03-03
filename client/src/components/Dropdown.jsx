@@ -1,81 +1,77 @@
-import React, { useState, useEffect, useContext, createContext, useCallback} from 'react';
-import { usePopper } from 'react-popper';
+import React, { useState, useEffect, useContext, createContext, useCallback } from 'react'
+import { usePopper } from 'react-popper'
 
-// dropdown context 
-const DropdownContex = createContext();
+// dropdown context
+const DropdownContext = createContext()
 
+// toggle
 
-// toggle 
+const DropdownToggle = ({ children, icon = true, className = '', hover = false, iconClass = '', ...props }) => {
+  const { toggle, setOpen, setRefEl } = useContext(DropdownContext)
 
-const DropdownToggle = ({
-  children, 
-  icon = true, 
-  className="", 
-  hover=false, 
-  iconClass="", 
-  ...props
-}) => {
-  const { toggle, open, setOpen, setRefEl } = useContext(DropdownContex); 
-  
-  // handle on hover 
+  // handle on hover
   const handleHover = () => {
-    if(!hover) return;
-    setOpen(true);
+    if (!hover) return
+    setOpen(true)
   }
 
-  return(
-    <div 
+  return (
+    <div
       ref={setRefEl}
-      className={`flex items-center select-none justify-between gap-3 ${className}`}
+      className={`flex items-center flex-nowrap justify-between gap-3 whitespace-nowrap select-none ${className}`}
       onClick={toggle}
       onMouseOver={handleHover}
       {...props}
     >
       {children}
-      { icon && <i className={`fi fi-rr-angle-down text-[10px] ${iconClass}`} /> }
+      {icon && <i className={`fi fi-rr-angle-down text-[10px] block -mb-1 ${iconClass}`} />}
     </div>
   )
-
-
 }
 
-// dropdown manu
-const DropdownMenu = ({className="", children, placement="bottom-start", offset=[0, 8],  ...props}) => {
-  const { open, setOpen, popperEl, setPopperEl, refEl } = useContext(DropdownContex);
+// dropdown menu
+const DropdownMenu = ({ className = '', children, placement = 'bottom-start', offset = [0, 8], ...props }) => {
+  const { open, setOpen, popperEl, setPopperEl, refEl } = useContext(DropdownContext)
 
   const { styles, attributes } = usePopper(refEl, popperEl, {
     placement,
     modifiers: [
       {
-        name: "flip",
+        name: 'flip',
         options: {
           fallbackPlacements: ['top', 'bottom', 'right', 'left'],
         },
       },
       {
-        name: "offset",
-        options: { offset }
-      }
-    ]
+        name: 'offset',
+        options: { offset },
+      },
+    ],
   })
 
+  const handleOutsideClick = useCallback(
+    (e) => {
+      if (open && !popperEl.contains(e.target) && !refEl.contains(e.target)) {
+        setOpen(false)
+        document.removeEventListener('mousedown', handleOutsideClick)
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [popperEl, refEl, open],
+  )
 
-  const handleOutsideClick = useCallback((e) => {
-    if(open && !popperEl.contains(e.target) && !refEl.contains(e.target)){
-      setOpen(false);
-      document.removeEventListener('mousedown', handleOutsideClick);
-    }
-  }, [popperEl, refEl, open])
-
-  // click outsite
+  // click outside
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
-  }, [open]);
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
 
   return (
-    <div 
-      ref={setPopperEl} 
-      style={styles.popper} 
+    <div
+      ref={setPopperEl}
+      style={styles.popper}
+      onClick={() => setOpen(false)}
       className={`min-w-full ${className} ${!open ? 'invisible pointer-events-none' : ''}`}
       {...attributes.popper}
       {...props}
@@ -83,30 +79,31 @@ const DropdownMenu = ({className="", children, placement="bottom-start", offset=
       {open && children}
     </div>
   )
-
 }
 // dropdown
-const Dropdown = ({children, isOpen}) => {
-  const [ open, setOpen ] = useState(false);
-  const [ popperEl, setPopperEl ] = useState(null);
-  const [ refEl, setRefEl ] = useState(null);
+const Dropdown = ({ children, isOpen }) => {
+  const [open, setOpen] = useState(false)
+  const [popperEl, setPopperEl] = useState(null)
+  const [refEl, setRefEl] = useState(null)
 
-  // toggle 
-  const toggle = () => setOpen(!open);
+  // toggle
+  const toggle = () => (isOpen !== undefined ? null : setOpen(!open))
+
+  // open on hover
+  useEffect(() => {
+    isOpen !== undefined && setOpen(isOpen)
+  }, [isOpen])
 
   return (
     <div className="relative">
-      <DropdownContex.Provider 
-        value={{open, setOpen, popperEl, setPopperEl, refEl, setRefEl, toggle}}
-      >
+      <DropdownContext.Provider value={{ open, setOpen, popperEl, setPopperEl, refEl, setRefEl, toggle }}>
         {children}
-      </DropdownContex.Provider>
+      </DropdownContext.Provider>
     </div>
   )
 }
 
+Dropdown.Menu = DropdownMenu
+Dropdown.Toggle = DropdownToggle
 
-Dropdown.Menu = DropdownMenu;
-Dropdown.Toggle = DropdownToggle;
-
-export default Dropdown;
+export default Dropdown

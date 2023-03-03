@@ -18,6 +18,6 @@
 
 @layer components{
   .container{
-      @apply 2xl:px-[70px];
+      @apply px-4 2xl:px-[70px];
   }
 }
