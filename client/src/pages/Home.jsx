@@ -1,9 +1,15 @@
+import Carousel from '../components/Carousel'
 import Layout from '../layout/Layout'
 
 const Home = () => {
   return (
     <Layout>
-      <h1>Home</h1>
+      {/* hero section */}
+      <section>
+        <div>
+          <Carousel></Carousel>
+        </div>
+      </section>
     </Layout>
   )
 }
