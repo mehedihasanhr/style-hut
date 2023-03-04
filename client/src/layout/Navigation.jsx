@@ -48,45 +48,47 @@ const Navigation = () => {
   const [search, setSearch] = useState('')
 
   return (
-    <div className="container border-b border-dash h-16 lg:h-20 flex items-center justify-between gap-3">
-      <button
-        aria-describedby="menutoggle"
-        className="flex items-center justify-center lg:hidden order-last sm:ml-6 md:order-first md:ml-0"
-      >
-        <i className="fi fi-rr-menu-burger text-lg md:text-xl text-gray-700" />
-      </button>
-      {/* main logo */}
-      <Logo className="hidden sm:block w-28 md:w-36 lg:w-40" />
-      {/* small logo */}
-      <div>
-        <div className="sm:hidden font-bold text-xl w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
-          SH
+    <div className="container">
+      <div className="lg:border-b border-dashed border-gray-300 h-16 lg:h-20 flex items-center justify-between gap-3">
+        <button
+          aria-describedby="menutoggle"
+          className="flex items-center justify-center lg:hidden order-last sm:ml-6 md:order-first md:ml-0"
+        >
+          <i className="fi fi-rr-menu-burger text-lg md:text-xl text-gray-700" />
+        </button>
+        {/* main logo */}
+        <Logo className="hidden sm:block w-28 md:w-36 lg:w-40" />
+        {/* small logo */}
+        <div>
+          <div className="sm:hidden font-bold text-xl w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
+            SH
+          </div>
         </div>
+        <MainSearch
+          categories={categories}
+          category={category}
+          onSelect={setCategory}
+          search={search}
+          setSearch={setSearch}
+        />
+        <ul className="hidden md:flex items-center gap-5">
+          <NavigationItem
+            className="pr-5 border-r hidden xl:flex"
+            icon="fi fi-rr-headset"
+            title="123-456-7890"
+            subTitle="Contact"
+          />
+          <NavigationItem icon="fi fi-rr-user" title="Account" subTitle="Sign In" textClassName="hidden xl:flex" />
+          <NavigationItem icon="fi fi-rr-heart" title="$200.00" subTitle="total" badge={5} textClassName="hidden" />
+          <NavigationItem
+            icon="fi fi-rr-shopping-cart"
+            title="$200.00"
+            subTitle="total"
+            badge={5}
+            textClassName="ml-1 hidden xl:flex"
+          />
+        </ul>
       </div>
-      <MainSearch
-        categories={categories}
-        category={category}
-        onSelect={setCategory}
-        search={search}
-        setSearch={setSearch}
-      />
-      <ul className="hidden md:flex items-center gap-5">
-        <NavigationItem
-          className="pr-5 border-r hidden xl:flex"
-          icon="fi fi-rr-headset"
-          title="123-456-7890"
-          subTitle="Contact"
-        />
-        <NavigationItem icon="fi fi-rr-user" title="Account" subTitle="Sign In" textClassName="hidden xl:flex" />
-        <NavigationItem icon="fi fi-rr-heart" title="$200.00" subTitle="total" badge={5} textClassName="hidden" />
-        <NavigationItem
-          icon="fi fi-rr-shopping-cart"
-          title="$200.00"
-          subTitle="total"
-          badge={5}
-          textClassName="ml-1 hidden xl:flex"
-        />
-      </ul>
     </div>
   )
 }

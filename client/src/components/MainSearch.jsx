@@ -14,7 +14,7 @@ const MainSearch = ({ categories, category, onSelect, search, setSearch }) => {
     <div className="w-full max-w-[350px] lg:max-w-[450px] 2xl:max-w-[524px]">
       <Dropdown isOpen={open} className="w-full">
         <Dropdown.Toggle icon={false} className="w-full">
-          <div className="flex items-center w-full">
+          <div className="flex items-center w-full relative">
             <div className="hidden lg:block">
               <Select
                 value={category}
