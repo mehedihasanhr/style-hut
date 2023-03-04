@@ -1,0 +1,10 @@
+.slick-arrow.slick-prev{
+    display: none;
+}
+.slick-arrow.slick-next{
+    display: none;
+}
+.slick-dots{
+    position: absolute;
+    bottom: 10px;
+}

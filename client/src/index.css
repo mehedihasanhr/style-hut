@@ -14,6 +14,17 @@
       font-weight: 400;
       font-family: 'Inter', sans-serif;
   }
+
+  h1,h2,h3,h4,h5,h6{
+      font-weight: 600;
+  }
+
+  h1{ @apply xl:text-5xl lg:text-4xl md:text-3xl sm:text-2xl text-xl; }
+  h2{ @apply xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl text-lg; }
+  h3{ @apply xl:text-3xl lg:text-2xl md:text-xl sm:text-lg text-base; }
+  h4{ @apply xl:text-2xl lg:text-xl md:text-lg sm:text-base text-sm; }
+  h5{ @apply xl:text-xl lg:text-lg md:text-base sm:text-sm text-xs; }
+  h6{ @apply xl:text-lg lg:text-base md:text-sm sm:text-xs text-[10px]; }
 }
 
 @layer components{

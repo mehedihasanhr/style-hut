@@ -12,7 +12,7 @@ const MainSearch = ({ categories, category, onSelect, search, setSearch }) => {
 
   return (
     <div className="w-full max-w-[350px] lg:max-w-[450px] 2xl:max-w-[524px]">
-      <Dropdown isOpen={open} className="w-full">
+      <Dropdown isOpen={open} className="w-full relative">
         <Dropdown.Toggle icon={false} className="w-full">
           <div className="flex items-center w-full relative">
             <div className="hidden lg:block">
@@ -43,7 +43,7 @@ const MainSearch = ({ categories, category, onSelect, search, setSearch }) => {
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="w-full">
-          <div className="flex flex-col bg-white shadow-lg rounded-md overflow-hidden">
+          <div className="flex flex-col bg-white shadow-lg rounded-md overflow-hidden text-xs md:text-sm">
             <Link to="/" className="block py-1 px-3 hover:bg-zinc-100">
               Search for {search}
             </Link>
