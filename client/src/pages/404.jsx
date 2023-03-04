@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const NotFoundPage = () => {
   return (
     <div className="flex items-center justify-center w-screen h-screen overflow-hidden">
@@ -7,12 +9,12 @@ const NotFoundPage = () => {
         <p className="text-lg text-center text-gray-500">
           The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
         </p>
-        <a
-          href="/"
+        <Link
+          to="/"
           className="px-4 py-2 mt-4 text-sm font-medium text-white transition duration-200 ease-in bg-blue-600 rounded-lg hover:bg-blue-700"
         >
           Go to homepage
-        </a>
+        </Link>
       </div>
     </div>
   )
