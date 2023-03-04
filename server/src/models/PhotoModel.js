@@ -1,17 +1,19 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const PhotoSchema = new mongoose.Schema({
+const PhotoSchema = new mongoose.Schema(
+  {
     originalname: { type: String, required: true },
     filename: { type: String, required: true },
     mimetype: { type: String, required: true },
     size: { type: Number, required: true },
-    url: { type: String, required: true },
+    path: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-}, {
+  },
+  {
     timestamps: true,
-});
+  },
+)
 
+const PhotoModel = mongoose.model('Photo', PhotoSchema)
 
-const PhotoModel = mongoose.model('Photo', PhotoSchema);
-
-export default PhotoModel;
+export default PhotoModel

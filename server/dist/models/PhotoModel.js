@@ -23,7 +23,7 @@ const PhotoSchema = new _mongoose.default.Schema({
     type: Number,
     required: true
   },
-  url: {
+  path: {
     type: String,
     required: true
   },

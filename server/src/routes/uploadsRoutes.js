@@ -1,9 +1,9 @@
-import { Router } from "express";
-import UploadController from "../controllers/UploadController";
-import { isFileAlreadyExist, upload } from "../middleware";
-const router = Router();
+import { Router } from 'express'
+import UploadController from '../controllers/UploadController'
+import { upload } from '../middleware'
+const router = Router()
 
 // * all routes here...
-router.post("/",upload.single('image'),isFileAlreadyExist, UploadController.upload);
+router.post('/', upload.single('image'), UploadController.upload)
 
-export default router;
+export default router

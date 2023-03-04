@@ -22,11 +22,6 @@ class UploadController {
             message: 'No file uploaded'
           });
         }
-        return res.status(201).json({
-          status: 'success',
-          message: 'Photo uploaded successfully',
-          data: req.file
-        });
 
         // * create new photo
         try {
@@ -36,7 +31,7 @@ class UploadController {
             mimetype: req.file.mimetype,
             size: req.file.size,
             path: req.file.path,
-            user: req.user._id
+            user: req.session.user.data.id
           });
 
           // * save photo

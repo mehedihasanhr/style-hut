@@ -11,6 +11,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const router = (0, _express.Router)();
 
 // * all routes here...
-router.post("/", _middleware.upload.single('image'), _middleware.isFileAlreadyExist, _UploadController.default.upload);
+router.post('/', _middleware.upload.single('image'), _UploadController.default.upload);
 var _default = router;
 exports.default = _default;
