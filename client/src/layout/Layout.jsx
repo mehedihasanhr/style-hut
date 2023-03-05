@@ -1,3 +1,4 @@
+import Footer from './Footer'
 import Navigation from './Navigation'
 import SubNavbar from './SubNavbar'
 import TopSubNavigation from './TopSubNavigation'
@@ -11,6 +12,7 @@ const Layout = ({ children }) => {
         <SubNavbar />
       </header>
       <main className="container">{children}</main>
+      <Footer />
     </>
   )
 }
