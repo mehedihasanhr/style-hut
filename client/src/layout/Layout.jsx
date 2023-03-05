@@ -1,16 +1,10 @@
 import Footer from './Footer'
-import Navigation from './Navigation'
-import SubNavbar from './SubNavbar'
-import TopSubNavigation from './TopSubNavigation'
+import Header from './Header'
 
 const Layout = ({ children }) => {
   return (
     <>
-      <header className="border-b border-gray-300">
-        <TopSubNavigation />
-        <Navigation />
-        <SubNavbar />
-      </header>
+      <Header />
       <main className="container">{children}</main>
       <Footer />
     </>

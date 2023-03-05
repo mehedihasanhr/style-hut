@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Logo from '../components/Logo'
 import MainSearch from '../components/MainSearch'
 import NavItem from '../components/NavItem'
@@ -59,11 +60,11 @@ const Navigation = () => {
         {/* main logo */}
         <Logo className="hidden sm:block w-28 md:w-36 lg:w-40" />
         {/* small logo */}
-        <div>
+        <Link to="/">
           <div className="sm:hidden font-bold text-xl w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
             SH
           </div>
-        </div>
+        </Link>
         <MainSearch
           categories={categories}
           category={category}
