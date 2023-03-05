@@ -21,7 +21,7 @@ class HeroSliderController {
   async store(req, res) {
     const {
       slider,
-      status
+      active
     } = req.body;
     if (!slider) {
       return res.status(400).json('Slider and status are required');
@@ -29,7 +29,7 @@ class HeroSliderController {
     try {
       const heroSlider = await _HeroModel.default.create({
         slider,
-        status
+        active
       });
       if (!heroSlider) {
         return res.status(400).json('Hero slider not created');

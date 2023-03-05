@@ -9,6 +9,7 @@ var _cookieParser = _interopRequireDefault(require("cookie-parser"));
 var _expressSession = _interopRequireDefault(require("express-session"));
 var _connectMongodbSession = _interopRequireDefault(require("connect-mongodb-session"));
 var _path = _interopRequireDefault(require("path"));
+var _expressSharp = require("express-sharp");
 var _config = _interopRequireDefault(require("./config"));
 var _routes = _interopRequireDefault(require("./routes"));
 var _db = require("./db");
@@ -34,7 +35,11 @@ app.use(_bodyParser.default.json());
 app.use(_bodyParser.default.urlencoded({
   extended: true
 }));
-app.use((0, _helmet.default)());
+app.use((0, _helmet.default)({
+  crossOriginResourcePolicy: {
+    policy: 'cross-origin'
+  }
+}));
 app.use((0, _cookieParser.default)());
 
 // * session
@@ -70,9 +75,14 @@ app.use((0, _expressSession.default)({
 
 //* routes
 const _dirname = _path.default.resolve();
+// static files
+app.use(_express.default.static(_path.default.join(_dirname, 'public')));
 app.use('/api', _middleware.apiLimit, _routes.default);
-app.use('/static', _express.default.static(_path.default.join(_dirname, 'public/uploads')));
 
+// all images
+app.use('/statics', (0, _expressSharp.expressSharp)({
+  imageAdapter: new _expressSharp.FsAdapter(_path.default.join(_dirname, `public/uploads`))
+}));
 //* create express server
 app.listen(_config.default.port, () => {
   console.log(`Server started on port ${_config.default.port}`);
