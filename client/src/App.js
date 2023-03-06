@@ -8,11 +8,15 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import NotFoundPage from './pages/404'
+import Categories from './pages/Categories'
+import ProductDetails from './pages/ProductDetails'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/categories" element={<Categories />} />
+      <Route path="/product/:productId" element={<ProductDetails />} />
       <Route path="/*" element={<NotFoundPage />} />
     </Routes>
   )

@@ -3,9 +3,9 @@ import { footerLinks } from '../utils/constants/footerLinks'
 
 const Footer = () => {
   return (
-    <footer className="mt-20">
-      <div className="container border-t border-dashed border-gray-300 py-10">
-        <div className="max-w-[1080px] mx-auto">
+    <footer className="container mt-20">
+      <div className="border-t border-dashed border-gray-300 py-10">
+        <div className="mx-auto">
           <div className="grid grid-cols-12 gap-4 md:gap-10">
             <div className="col-span-6 sm:col-span-3">
               <div className="w-fit mx-auto">
