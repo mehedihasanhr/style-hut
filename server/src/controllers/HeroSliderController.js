@@ -13,6 +13,7 @@ class HeroSliderController {
 
   // add hero slider
   async store(req, res) {
+    console.log(req.body)
     const { slider, active } = req.body
     if (!slider) {
       return res.status(400).json('Slider and status are required')

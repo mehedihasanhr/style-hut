@@ -1,36 +1,41 @@
-import { useEffect, useState } from 'react'
-import Navigation from './Navigation'
-import SubNavbar from './SubNavbar'
-import TopSubNavigation from './TopSubNavigation'
+import { useEffect, useState } from 'react';
+import Navigation from './Navigation';
+import SubNavbar from './SubNavbar';
+import TopSubNavigation from './TopSubNavigation';
 
 const Header = () => {
-  const [sticky, setSticky] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [sticky, setSticky] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // handle scroll event
   useEffect(() => {
-    let prevScrollPosition = 0
+    let prevScrollPosition = 0;
     const handleScroll = () => {
-      const currentScrollPosition = window.pageYOffset
+      const currentScrollPosition = window.pageYOffset;
       // if scrolled position is 0 then set scrolled to false
       if (currentScrollPosition === 0) {
-        setScrolled(false)
-        setSticky(false)
+        setScrolled(false);
+        setSticky(false);
       }
+
+      if (currentScrollPosition > 150) {
+        setScrolled(true);
+      }
+
       // if scrolled up and not at top of page
       // then set scrolled to true
       if (currentScrollPosition < prevScrollPosition) {
-        setSticky(true)
+        setSticky(true);
       } else {
-        setSticky(false)
-        setScrolled(true)
+        setSticky(false);
       }
       // set prevScrollPosition to currentScrollPosition
-      prevScrollPosition = currentScrollPosition
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      prevScrollPosition = currentScrollPosition;
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () =>
+      window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <header
@@ -46,7 +51,7 @@ const Header = () => {
       <Navigation />
       <SubNavbar />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

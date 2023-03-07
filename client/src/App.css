@@ -1,10 +1,23 @@
-.slick-arrow.slick-prev{
-    display: none;
+.slick-arrow.slick-prev {
+  display: none;
 }
-.slick-arrow.slick-next{
-    display: none;
+.slick-arrow.slick-next {
+  display: none;
 }
-.slick-dots{
-    position: absolute;
-    bottom: 10px;
+.slick-dots {
+  position: absolute;
+  bottom: 10px;
+}
+
+/* disable number input arrow */
+
+/* remove input type number arrow */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }

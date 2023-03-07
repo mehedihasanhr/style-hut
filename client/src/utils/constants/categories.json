@@ -1,293 +1,100 @@
 [
     {
-        "header": "Electronics",
-        "links": [
-            {
-                "label": "Accessories & Supplies",
-                "link": "/"
-            },
-            {
-                "label": "Camera & Photo",
-                "link": "/"
-            },
-            {
-                "label": "Car & Vehicle Electronics",
-                "link": "/"
-            },
-            {
-                "label": "Cell Phones & Accessories",
-                "link": "/"
-            },
-            {
-                "label": "Computers & Accessories",
-                "link": "/"
-            },
-            {
-                "label": "Headphones",
-                "link": "/"
-            },
-            {
-                "label": "Home Audio",
-                "link": "/"
-            },
-            {
-                "label": "Office Electronics",
-                "link": "/"
-            },
-            {
-                "label": "Portable Audio & Video",
-                "link": "/"
-            },
-            {
-                "label": "Security & Surveillance",
-                "link": "/"
-            },
-            {
-                "label": "Service Plans",
-                "link": "/"
-            },
-            {
-                "label": "Television & Video",
-                "link": "/"
-            }
+        "name": "Electronics",
+        "sub": [
+            "Accessories & Supplies",
+            "Camera & Photo",
+            "Car & Vehicle Electronics",
+            "Cell Phones & Accessories",
+            "Computers & Accessories",
+            "Headphones",
+            "Home Audio",
+            "Office Electronics",
+            "Portable Audio & Video",
+            "Security & Surveillance",
+            "Service Plans",
+            "Television & Video"
         ]
     },
     {
-        "header": "Computers",
-        "links": [
-            {
-                "label": "Computer Accessories & Peripherals",
-                "link": "/"
-            },
-            {
-                "label": "Computer Components",
-                "link": "/"
-            },
-            {
-                "label": "Computers & Tablets",
-                "link": "/"
-            },
-            {
-                "label": "Data Storage",
-                "link": "/"
-            },
-            {
-                "label": "Laptop Accessories",
-                "link": "/"
-            },
-            {
-                "label": "Monitors",
-                "link": "/"
-            },
-            {
-                "label": "Networking Products",
-                "link": "/"
-            },
-            {
-                "label": "Printers & Ink",
-                "link": "/"
-            },
-            {
-                "label": "Scanners",
-                "link": "/"
-            },
-            {
-                "label": "Software",
-                "link": "/"
-            },
-            {
-                "label": "Tablet Accessories",
-                "link": "/"
-            }
+        "name": "Computers",
+        "sub": [
+            "Computer Accessories & Peripherals",
+            "Computer Components",
+            "Computers & Tablets",
+            "Data Storage",
+            "Laptop Accessories",
+            "Monitors",
+            "Networking Products",
+            "Printers & Ink",
+            "Scanners",
+            "Software",
+            "Tablet Accessories"
         ]
     },
     {
-        "header": "Smart Home",
-        "links": [
-            {
-                "label": "Amazon Smart Home",
-                "link": "/"
-            },
-            {
-                "label": "Connected Home Security",
-                "link": "/"
-            },
-            {
-                "label": "Door Locks",
-                "link": "/"
-            },
-            {
-                "label": "Door Viewers",
-                "link": "/"
-            },
-            {
-                "label": "Lighting",
-                "link": "/"
-            },
-            {
-                "label": "Smart Plugs & Outlets",
-                "link": "/"
-            },
-            {
-                "label": "Thermostats",
-                "link": "/"
-            },
-            {
-                "label": "Wearable Technology",
-                "link": "/"
-            }
+        "name": "Smart Home",
+        "sub": [
+            "Amazon Smart Home",
+            "Connected Home Security",
+            "Door Locks",
+            "Door Viewers",
+            "Lighting",
+            "Smart Plugs & Outlets",
+            "Thermostats",
+            "Wearable Technology"
         ]
     },
     {
-        "header": "Arts & Crafts",
-        "links": [
-            {
-                "label": "Painting, Drawing & Art Supplies",
-                "link": "/"
-            },
-            {
-                "label": "Beading & Jewelry Making",
-                "link": "/"
-            },
-            {
-                "label": "Craft Supplies",
-                "link": "/"
-            },
-            {
-                "label": "Fabric",
-                "link": "/"
-            },
-            {
-                "label": "Floral",
-                "link": "/"
-            },
-            {
-                "label": "Knitting & Crochet",
-                "link": "/"
-            },
-            {
-                "label": "Needlework",
-                "link": "/"
-            },
-            {
-                "label": "Scrapbooking & Stamping",
-                "link": "/"
-            },
-            {
-                "label": "Sewing",
-                "link": "/"
-            },
-            {
-                "label": "Organizing & Storage",
-                "link": "/"
-            },
-            {
-                "label": "Scrapbooking & Stamping",
-                "link": "/"
-            },
-            {
-                "label": "Gift Wrapping Supplies",
-                "link": "/"
-            }
+        "name": "Arts & Crafts",
+        "sub": [
+            "Painting, Drawing & Art Supplies",
+            "Beading & Jewelry Making",
+            "Craft Supplies",
+            "Fabric",
+            "Floral",
+            "Knitting & Crochet",
+            "Needlework",
+            "Scrapbook's & Stamping",
+            "Sewing",
+            "Organizing & Storage",
+            "Gift Wrapping Supplies"
         ]
     },
     {
-        "header": "Baby",
-        "links": [
-            {
-                "label": "Activity & Entertainment",
-                "link": "/"
-            },
-            {
-                "label": "Apparel & Accessories",
-                "link": "/"
-            },
-            {
-                "label": "Baby & Toddler Toys",
-                "link": "/"
-            },
-            {
-                "label": "Baby Care",
-                "link": "/"
-            },
-            {
-                "label": "Baby Stationery",
-                "link": "/"
-            },
-            {
-                "label": "Diapering",
-                "link": "/"
-            },
-            {
-                "label": "Feeding",
-                "link": "/"
-            },
-            {
-                "label": "Health & Safety",
-                "link": "/"
-            },
-            {
-                "label": "Nursery",
-                "link": "/"
-            },
-            {
-                "label": "Potty Training",
-                "link": "/"
-            },
-            {
-                "label": "Strollers & Accessories",
-                "link": "/"
-            }
+        "name": "Baby",
+        "sub": [
+            "Activity & Entertainment",
+            "Apparel & Accessories",
+            "Baby & Toddler Toys",
+            "Baby Care",
+            "Baby Stationery",
+            "Diapering",
+            "Feeding",
+            "Health & Safety",
+            "Nursery",
+            "Potty Training",
+            "Strollers & Accessories"
         ]
     },
     {
-        "header": "Men Fashion",
-        "links": [
-            {
-                "label": "Clothing",
-                "link": "/"
-            },
-            {
-                "label": "Shoes",
-                "link": "/"
-            },
-            {
-                "label": "watch's",
-                "link": "/"
-            },
-            {
-                "label": "Accessories",
-                "link": "/"
-            },
-            {
-                "label": "Boy's Fashion",
-                "link": "/"
-            }
+        "name": "Men Fashion",
+        "sub": [
+            "Clothing",
+            "Shoes",
+            "watch",
+            "Accessories",
+            "Boy's Fashion"
         ]
     },
     {
-        "header": "Women Fashion",
-        "links": [
-            {
-                "label": "Clothing",
-                "link": "/"
-            },
-            {
-                "label": "Shoes",
-                "link": "/"
-            },
-            {
-                "label": "Watchs",
-                "link": "/"
-            },
-            {
-                "label": "Accessories",
-                "link": "/"
-            },
-            {
-                "label": "Girl's Fashion",
-                "link": "/"
-            }
+        "name": "Women Fashion",
+        "sub": [
+            "Clothing",
+            "Shoes",
+            "Watch",
+            "Accessories",
+            "Girl's Fashion"
         ]
     }
 ]
