@@ -3,20 +3,26 @@ import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Quantity from '../components/Quantity';
 import Rating from '../components/Rating';
+import Reviews from '../components/Reviews';
 import Section from '../components/Section';
+import Tabs from '../components/Tabs';
 import Layout from '../layout/Layout';
 
 const ProductDetails = () => {
   const [qnt, setQnt] = useState(1);
+
+  // ui state
+  const [showFullDesc, setShowFullDesc] = useState(false);
+
   return (
     <Layout>
       <Section>
         <div>
-          <div className="grid grid-cols-12 gap-8">
+          <div className="grid grid-cols-12 gap-y-8 md:gap-8">
             {/* Product Image */}
             <div className="col-span-12 lg:col-span-4">
               <div className="flex flex-col gap-4">
-                <div className="w-full h-[400px] bg-gray-50 rounded-lg overflow-hidden p-4">
+                <div className="w-full md:h-[400px] bg-gray-50 rounded-lg overflow-hidden p-4">
                   <img
                     src="/images/shoes.png"
                     alt="shirt"
@@ -25,11 +31,11 @@ const ProductDetails = () => {
                 </div>
 
                 {/* images */}
-                <div className="flex items-center gap-5">
-                  <div className="w-16 h-16 bg-slate-100 rounded-md"></div>
-                  <div className="w-16 h-16 bg-slate-100 rounded-md"></div>
-                  <div className="w-16 h-16 bg-slate-100 rounded-md"></div>
-                  <div className="w-16 h-16 bg-slate-100 rounded-md"></div>
+                <div className="flex items-center justify-center gap-3 md:gap-5">
+                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
+                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
+                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
+                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
                 </div>
               </div>
             </div>
@@ -40,7 +46,7 @@ const ProductDetails = () => {
                 <h6 className="text-xs text-gray-500">
                   Man's Fashion
                 </h6>
-                <h4>
+                <h4 className="xl:text-2xl lg:text-xl text-lg">
                   Shirt 1 men's fetions Shirt 1 men's
                   fetions
                 </h4>
@@ -59,14 +65,16 @@ const ProductDetails = () => {
                 {/* price */}
                 <div className="flex flex-col gap-y-3">
                   <div className="text-sm flex space-x-2">
-                    <span className="text-sm line-through">
-                      $3
+                    <span className="text-sm line-through text-gray-500">
+                      $3.00
                     </span>
                     <span className="text-red-500">
                       (30% off)
                     </span>
                   </div>
-                  <h4>$20</h4>
+                  <h4 className="xl:text-2xl text-xl">
+                    $20.00
+                  </h4>
                 </div>
 
                 {/* short description */}
@@ -80,12 +88,12 @@ const ProductDetails = () => {
 
                 {/* color */}
                 <div className="flex items-center gap-4 mt-3">
-                  <h6 className="text-sm">Colors</h6>
+                  <h6 className="text-sm">Variants</h6>
                   <div className="flex gap-3 items-center">
-                    <div className="w-6 h-6 rounded-full bg-black"></div>
-                    <div className="w-6 h-6 rounded-full bg-red-500"></div>
-                    <div className="w-6 h-6 rounded-full bg-blue-500"></div>
-                    <div className="w-6 h-6 rounded-full bg-green-500"></div>
+                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
+                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
+                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
+                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
                   </div>
                 </div>
 
@@ -96,7 +104,7 @@ const ProductDetails = () => {
                     {['S', 'M', 'L', 'XL'].map((size) => (
                       <button
                         key={`${size}-${Math.random()}`}
-                        className="w-8 h-8 rounded-full border text-sm font-medium hover:ring-2"
+                        className="w-8 h-8 rounded-full border text-sm font-medium hover:ring-2 ring-offset-2"
                       >
                         {size}
                       </button>
@@ -152,8 +160,8 @@ const ProductDetails = () => {
 
                 {/* delivery location */}
                 <div className="flex items-center justify-between gap-x-2 text-sm mt-2">
-                  <i className="fi fi-rr-marker -mb-1" />
-                  <span className="mr-auto">
+                  <span className="mr-auto flex items-center gap-2">
+                    <i className="fi fi-rr-marker -mb-1" />
                     Delivery Location
                   </span>
 
@@ -250,6 +258,108 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
+      </Section>
+
+      {/* product description */}
+      <Section>
+        <Tabs>
+          <Tabs.Panel label="Description">
+            <p
+              className={`text-xs md:text-sm text-gray-500 ${
+                showFullDesc ? '' : 'line-clamp-[10]'
+              }`}
+            >
+              Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Vivamus mollis quam purus, et
+              euismod quam maximus et. Vestibulum iaculis
+              neque ac ligula pretium, ac posuere ex
+              convallis. Donec tincidunt lobortis dui, ut
+              tempus nisl faucibus id. Aliquam volutpat
+              lobortis vehicula. Cras in rutrum diam. Morbi
+              efficitur consequat faucibus. Sed nec lobortis
+              orci, nec mattis nunc. Sed viverra vestibulum
+              neque elementum facilisis. Vestibulum faucibus
+              lorem id iaculis placerat. Aenean id sodales
+              nibh, vel faucibus sem. Mauris non purus id
+              velit dapibus porta. Sed tincidunt odio dolor,
+              ut venenatis nisi fringilla ac. Pellentesque
+              laoreet ligula eu nibh sollicitudin maximus.
+              Aenean dapibus lectus eget nulla pulvinar
+              tincidunt. Suspendisse vehicula urna enim, sit
+              amet fermentum est tincidunt eget. Etiam id
+              iaculis tellus, eu condimentum massa. Vivamus
+              ultricies arcu orci, a bibendum eros eleifend
+              a. Fusce in enim sit amet odio pretium
+              accumsan ut vel lorem. Nam pulvinar magna sit
+              amet enim euismod volutpat. Sed pharetra orci
+              a est venenatis, id venenatis neque vulputate.
+              Sed ut metus vel metus tincidunt euismod eget
+              in tellus. Vestibulum a sagittis eros, et
+              mattis urna. Cras et dapibus elit. Aliquam eu
+              tellus odio. Ut ut gravida orci, in congue
+              tellus. Proin sed diam a mi maximus finibus.
+              Curabitur ac dignissim ex. Nulla tempus, metus
+              at vulputate placerat, mauris metus varius
+              elit, convallis aliquet eros sapien ut erat.
+              Pellentesque habitant morbi tristique senectus
+              et netus et malesuada fames ac turpis egestas.
+              Sed lacinia accumsan placerat. Lorem ipsum
+              dolor sit amet, consectetur adipiscing elit.
+              Class aptent taciti sociosqu ad litora
+              torquent per conubia nostra, per inceptos
+              himenaeos. Nam in massa sit amet purus auctor
+              accumsan. Phasellus scelerisque turpis et dui
+              tincidunt, eu semper leo porttitor. In id
+              ornare nisl, a fermentum orci. Curabitur
+              imperdiet dui neque, eget pellentesque odio
+              fringilla eu. Nullam blandit mattis fermentum.
+              Nam in elit quis augue tempus volutpat non
+              quis lectus. Suspendisse bibendum non mi sit
+              amet fringilla. Curabitur nec magna dui. Donec
+              tempus, odio eget hendrerit scelerisque, diam
+              tellus hendrerit eros, vel tincidunt justo
+              velit non velit. Integer lacinia, nunc
+              bibendum ornare pharetra, urna lorem convallis
+              tortor, eget malesuada urna lacus eget ipsum.
+              Proin ut eros convallis neque pellentesque
+              vulputate. Aliquam erat volutpat. Sed
+              hendrerit gravida elit, vitae cursus nisi.
+              Aliquam porttitor mauris eget neque mollis
+              dictum.
+            </p>
+            <span
+              className="block text-xs font-medium mt-2 text-blue-700 hover:underline hover:cursor-pointer"
+              onClick={() => setShowFullDesc(!showFullDesc)}
+            >
+              {showFullDesc ? 'Show less' : 'Show more'}
+            </span>
+          </Tabs.Panel>
+
+          {/* specifications */}
+          <Tabs.Panel label="Specifications">
+            <table className="table-auto w-fit border-collapse">
+              <tbody>
+                {[...Array(10)].map((_, i) => (
+                  <tr key={i} className="odd:bg-[#fafbfd]">
+                    <td className="border border-gray-100 min-w-[80px] md:min-w-[150px] py-2 px-3 text-xs md:text-sm text-gray-700">
+                      Title
+                    </td>
+                    <td className="border border-gray-100 py-2 px-3 text-xs md:text-sm text-gray-700 whitespace-normal">
+                      Shirt 1 men's fetions Shirt 1 men's
+                      fetions Shirt 1 men's fetions Shirt 1
+                      men's fetions
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Tabs.Panel>
+        </Tabs>
+      </Section>
+
+      {/* Reviews */}
+      <Section>
+        <Reviews />
       </Section>
     </Layout>
   );

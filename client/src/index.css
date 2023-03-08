@@ -44,6 +44,26 @@
   h6 {
     @apply xl:text-lg lg:text-base md:text-sm sm:text-xs text-[10px];
   }
+
+  table {
+    @apply w-full table-auto;
+  }
+
+  th,
+  td {
+    @apply text-left text-xs md:text-sm whitespace-nowrap text-slate-600;
+  }
+  th {
+    @apply text-slate-600;
+  }
+
+  tr:hover td {
+    @apply text-slate-700;
+  }
+
+  tr:hover {
+    @apply hover:bg-black/5;
+  }
 }
 
 @layer components {
