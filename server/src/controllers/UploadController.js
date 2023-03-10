@@ -3,7 +3,6 @@ import PhotoModel from '../models/PhotoModel'
 class UploadController {
   // Upload file to server
   upload = async (req, res) => {
-    console.log(req.file)
     try {
       // * check if file is uploaded
       if (!req.file) {

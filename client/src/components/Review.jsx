@@ -35,23 +35,13 @@ const Review = () => {
       <div className="flex items-center gap-3 mt-3">
         <div className="flex items-center justify-center w-16 h-16 bg-slate-100">
           <div className="relative w-14 h-14 ">
-            <img
-              src="/cloths/sweater-1.png"
-              alt=""
-              fill
-              sizes="(max-width:1500px) 64px;"
-            />
+            <img src="/cloths/sweater-1.png" alt="" />
           </div>
         </div>
 
         <div className="flex items-center justify-center w-16 h-16 bg-slate-100">
           <div className="relative w-14 h-14 ">
-            <img
-              src="/cloths/sweater-3.png"
-              alt=""
-              fill
-              sizes="(max-width:1500px) 64px;"
-            />
+            <img src="/cloths/sweater-3.png" alt="" />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Button from '../components/Button';
 import Quantity from '../components/Quantity';
 import Rating from '../components/Rating';
@@ -8,12 +8,76 @@ import Section from '../components/Section';
 import Tabs from '../components/Tabs';
 import Layout from '../layout/Layout';
 
+import { selectProductById } from '../features/products/productsApiSlice';
+import { useSelector } from 'react-redux';
+import Image from '../components/Image';
+import { calcDiscount } from '../utils/calcDiscount';
+
 const ProductDetails = () => {
   const [qnt, setQnt] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+  const [activeImage, setActiveImage] = useState('');
+  const { productId } = useParams();
 
   // ui state
   const [showFullDesc, setShowFullDesc] = useState(false);
 
+  // get product from store by id
+  const product = useSelector((state) => selectProductById(state, productId));
+
+  // destructure product
+  const {
+    _id,
+    title,
+    price,
+    discount,
+    images,
+    variants,
+    sizes,
+    stock,
+    tags,
+    category,
+    desc,
+    short_desc,
+  } = product;
+
+  // set active image on product change
+  useEffect(() => {
+    if (product) {
+      setActiveImage(images[0]);
+      setSelectedVariant(variants[0]);
+      setSelectedSize(sizes[0]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
+
+  // handle select variant
+  const handleSelectVariant = (variant) => {
+    setSelectedVariant(variant);
+    setActiveImage(variant);
+  };
+
+  // discount price
+  const discountPrice = calcDiscount(price, discount);
+  const discounted = price - discountPrice;
+
+  // handle add to cart button
+  const handleAddToCart = () => {
+    const cart = {
+      product: _id,
+      quantity: qnt,
+      total: discountPrice * qnt,
+      extras: [
+        { key: 'variant', value: selectedVariant },
+        { key: 'size', value: selectedSize },
+      ],
+    };
+
+    console.log(cart);
+  };
+
+  if (!product) return null;
   return (
     <Layout>
       <Section>
@@ -22,20 +86,42 @@ const ProductDetails = () => {
             {/* Product Image */}
             <div className="col-span-12 lg:col-span-4">
               <div className="flex flex-col gap-4">
-                <div className="w-full md:h-[400px] bg-gray-50 rounded-lg overflow-hidden p-4">
-                  <img
-                    src="/images/shoes.png"
-                    alt="shirt"
-                    className="w-full h-full object-contain"
-                  />
+                <div className="relative w-full md:h-[400px] bg-gray-50 rounded-lg overflow-hidden p-4">
+                  {activeImage ? (
+                    <Image
+                      src={`${process.env.REACT_APP_PUBLIC_URL}/${activeImage}`}
+                      alt="shirt"
+                      className="w-full h-full object-contain"
+                      sizes="
+                        (max-width: 640px) 250px,
+                        (max-width: 768px) 300px,
+                        (max-width: 1024px) 400px,
+                        500px
+                      "
+                    />
+                  ) : (
+                    <div className="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-md grid place-items-center animate-pulse">
+                      <div>Loading...</div>
+                    </div>
+                  )}
                 </div>
 
                 {/* images */}
                 <div className="flex items-center justify-center gap-3 md:gap-5">
-                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
-                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
-                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
-                  <div className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"></div>
+                  {images.map((image) => (
+                    <div
+                      key={`image-${Math.random()}`}
+                      className="w-10 h-10 md:w-16 md:h-16 bg-gray-300 rounded-md"
+                      onClick={() => setActiveImage(image)}
+                    >
+                      <Image
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/${image}`}
+                        alt="shirt"
+                        className="w-full h-full object-contain"
+                        sizes="80px"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -43,57 +129,53 @@ const ProductDetails = () => {
             {/* Product Details */}
             <div className="col-span-12 lg:col-span-5">
               <div className="flex flex-col gap-2">
-                <h6 className="text-xs text-gray-500">
-                  Man's Fashion
-                </h6>
-                <h4 className="xl:text-2xl lg:text-xl text-lg">
-                  Shirt 1 men's fetions Shirt 1 men's
-                  fetions
-                </h4>
+                <h6 className="text-xs text-gray-500">Man's Fashion</h6>
+                <h4 className="xl:text-2xl lg:text-xl text-lg">{title}</h4>
                 <div className="flex items-center gap-x-2 text-xs">
-                  <Rating
-                    rating={4.5}
-                    iconClassName="w-3 h-3"
-                  />
+                  <Rating rating={4.5} iconClassName="w-3 h-3" />
                   <span className="font-medium text-black/80">
                     (22 Reviews)
                   </span>
                   <span className="ml-2 px-2 border-l text-red-500 font-medium">
-                    32 stock
+                    {stock} stock
                   </span>
                 </div>
                 {/* price */}
                 <div className="flex flex-col gap-y-3">
                   <div className="text-sm flex space-x-2">
                     <span className="text-sm line-through text-gray-500">
-                      $3.00
+                      ${discounted.toFixed(2)}
                     </span>
-                    <span className="text-red-500">
-                      (30% off)
-                    </span>
+                    <span className="text-red-500">({discount}% off)</span>
                   </div>
                   <h4 className="xl:text-2xl text-xl">
-                    $20.00
+                    ${discountPrice.toFixed(2)}
                   </h4>
                 </div>
 
                 {/* short description */}
-                <p className="text-xs text-black/80">
-                  Lorem ipsum dolor sit amet consectetur
-                  adipisicing elit. Quisquam, quod
-                  voluptatum. Quisquam, quod voluptatum.
-                  Quisquam, quod voluptatum. Quisquam, quod
-                  voluptatum.
-                </p>
+                <p className="text-xs text-black/80">{short_desc}</p>
 
                 {/* color */}
                 <div className="flex items-center gap-4 mt-3">
                   <h6 className="text-sm">Variants</h6>
                   <div className="flex gap-3 items-center">
-                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
-                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
-                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
-                    <div className="w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2"></div>
+                    {variants?.map((variant) => (
+                      <div
+                        key={`${product._id}-${Math.random()}`}
+                        onClick={() => handleSelectVariant(variant)}
+                        className={`w-10 h-10 rounded bg-gray-300 hover:ring-2 ring-blue-500 ring-offset-2 ${
+                          variant === selectedVariant ? 'ring-2' : ''
+                        }`}
+                      >
+                        <Image
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/${variant}`}
+                          alt="shirt"
+                          className="w-full h-full object-contain"
+                          sizes="40px"
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
 
@@ -101,10 +183,13 @@ const ProductDetails = () => {
                 <div className="flex items-center gap-4 mt-3">
                   <h6 className="text-sm">Size</h6>
                   <div className="flex gap-3 items-center">
-                    {['S', 'M', 'L', 'XL'].map((size) => (
+                    {product.sizes.map((size) => (
                       <button
                         key={`${size}-${Math.random()}`}
-                        className="w-8 h-8 rounded-full border text-sm font-medium hover:ring-2 ring-offset-2"
+                        onClick={() => setSelectedSize(size)}
+                        className={`w-8 h-8 rounded-full border text-sm font-medium hover:ring-2 ring-offset-2 ${
+                          size === selectedSize && 'ring-2'
+                        }`}
                       >
                         {size}
                       </button>
@@ -120,14 +205,11 @@ const ProductDetails = () => {
 
                 {/* button group */}
                 <div className="flex items-center gap-3 mt-3">
-                  <Button className="text-sm">
+                  <Button className="text-sm" onClick={handleAddToCart}>
                     <i className="fi fi-rr-shopping-cart -mb-1" />
                     Add to Cart
                   </Button>
-                  <Button
-                    variant="success"
-                    className="text-sm"
-                  >
+                  <Button variant="success" className="text-sm">
                     <i className="fi fi-rr-wallet -mb-1" />
                     Buy Now
                   </Button>
@@ -138,14 +220,18 @@ const ProductDetails = () => {
                     <li className="">SKU: 123456</li>
                     <li className="flex items-center gap-2">
                       Availability:
-                      <span className="text-blue-600 font-bold">
-                        In Stock
-                      </span>
+                      {stock > 0 ? (
+                        <span className="text-blue-600 font-bold">
+                          In Stock
+                        </span>
+                      ) : (
+                        <span className="text-red-600 font-bold">
+                          Out of stock
+                        </span>
+                      )}
                     </li>
-                    <li className="">Categories: Cloths</li>
-                    <li className="">
-                      Tags: Men, Fashion, New Trend
-                    </li>
+                    <li className="">Categories: {category.main}</li>
+                    <li className="">Tags: {tags?.join(', ')}</li>
                   </ul>
                 </div>
               </div>
@@ -154,9 +240,7 @@ const ProductDetails = () => {
             {/* Delivery Info */}
             <div className="col-span-12 lg:col-span-3 border-l">
               <div className="px-4">
-                <h6 className="text-sm text-gray-400">
-                  Delivery Info
-                </h6>
+                <h6 className="text-sm text-gray-400">Delivery Info</h6>
 
                 {/* delivery location */}
                 <div className="flex items-center justify-between gap-x-2 text-sm mt-2">
@@ -175,9 +259,7 @@ const ProductDetails = () => {
 
                 {/* address */}
                 <div className="border border-dashed p-2 text-xs rounded-md mt-2 text-gray-600">
-                  <address>
-                    123, ABC Street, New York, USA
-                  </address>
+                  <address>123, ABC Street, New York, USA</address>
                 </div>
 
                 {/* delivery time */}
@@ -187,25 +269,21 @@ const ProductDetails = () => {
                       <i className="fi fi-rr-truck-side -mb-1" />
                       <span> Standard Delivery </span>
                     </div>
-                    <span className="font-medium">
-                      (3-5 days)
-                    </span>
+                    <span className="font-medium">(3-5 days)</span>
                   </div>
                   <h6 className="text-base"> $5.00</h6>
                 </div>
 
                 <div className="p-2 border border-dashed rounded-md text-xs flex flex-col gap-2">
                   <p>
-                    Enjoy free shipping promotion with
-                    minimum spend 7 items in certain area
-                    from Music Mart.
+                    Enjoy free shipping promotion with minimum spend 7 items in
+                    certain area from Music Mart.
                   </p>
 
                   <div className="text-[10px] bg-slate-50 p-2 rounded-md">
                     <i className="fi fi-rr-clock -mb-1 mr-1" />
                     <span>
-                      Free shipping promotion is valid for
-                      standard delivery
+                      Free shipping promotion is valid for standard delivery
                     </span>
                   </div>
                 </div>
@@ -213,31 +291,23 @@ const ProductDetails = () => {
                 {/* Cash on delivery availability */}
                 <div className="flex items-center gap-2 mt-3 px-2 py-3 text-blue-600 bg-slate-50 rounded-md">
                   <i className="fi fi-rr-money -mb-1" />
-                  <span className="text-sm">
-                    Cash on delivery is available
-                  </span>
+                  <span className="text-sm">Cash on delivery is available</span>
                 </div>
 
                 {/* service */}
                 <div className="mt-4">
-                  <h6 className="text-sm text-gray-400 mt-3">
-                    Service
-                  </h6>
+                  <h6 className="text-sm text-gray-400 mt-3">Service</h6>
                   <div className="flex flex-col gap-y-4 my-3">
                     <div className="flex items-center justify-between text-sm gap-2">
                       <i className="fi fi-rr-shield-check -mb-1" />
-                      <span className="mr-auto">
-                        Warranty Not Available
-                      </span>
+                      <span className="mr-auto">Warranty Not Available</span>
                       <i className="fi fi-rr-info -mb-1" />
                     </div>
 
                     <div className="flex justify-between text-sm gap-2">
                       <i className="fi fi-rr-clock -mb-1" />
                       <div className="flex flex-col mr-auto">
-                        <span className="">
-                          7 Days Easy Return
-                        </span>
+                        <span className="">7 Days Easy Return</span>
                         <span className="text-xs text-gray-400">
                           Change of mind is not applicable
                         </span>
@@ -269,63 +339,7 @@ const ProductDetails = () => {
                 showFullDesc ? '' : 'line-clamp-[10]'
               }`}
             >
-              Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit. Vivamus mollis quam purus, et
-              euismod quam maximus et. Vestibulum iaculis
-              neque ac ligula pretium, ac posuere ex
-              convallis. Donec tincidunt lobortis dui, ut
-              tempus nisl faucibus id. Aliquam volutpat
-              lobortis vehicula. Cras in rutrum diam. Morbi
-              efficitur consequat faucibus. Sed nec lobortis
-              orci, nec mattis nunc. Sed viverra vestibulum
-              neque elementum facilisis. Vestibulum faucibus
-              lorem id iaculis placerat. Aenean id sodales
-              nibh, vel faucibus sem. Mauris non purus id
-              velit dapibus porta. Sed tincidunt odio dolor,
-              ut venenatis nisi fringilla ac. Pellentesque
-              laoreet ligula eu nibh sollicitudin maximus.
-              Aenean dapibus lectus eget nulla pulvinar
-              tincidunt. Suspendisse vehicula urna enim, sit
-              amet fermentum est tincidunt eget. Etiam id
-              iaculis tellus, eu condimentum massa. Vivamus
-              ultricies arcu orci, a bibendum eros eleifend
-              a. Fusce in enim sit amet odio pretium
-              accumsan ut vel lorem. Nam pulvinar magna sit
-              amet enim euismod volutpat. Sed pharetra orci
-              a est venenatis, id venenatis neque vulputate.
-              Sed ut metus vel metus tincidunt euismod eget
-              in tellus. Vestibulum a sagittis eros, et
-              mattis urna. Cras et dapibus elit. Aliquam eu
-              tellus odio. Ut ut gravida orci, in congue
-              tellus. Proin sed diam a mi maximus finibus.
-              Curabitur ac dignissim ex. Nulla tempus, metus
-              at vulputate placerat, mauris metus varius
-              elit, convallis aliquet eros sapien ut erat.
-              Pellentesque habitant morbi tristique senectus
-              et netus et malesuada fames ac turpis egestas.
-              Sed lacinia accumsan placerat. Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit.
-              Class aptent taciti sociosqu ad litora
-              torquent per conubia nostra, per inceptos
-              himenaeos. Nam in massa sit amet purus auctor
-              accumsan. Phasellus scelerisque turpis et dui
-              tincidunt, eu semper leo porttitor. In id
-              ornare nisl, a fermentum orci. Curabitur
-              imperdiet dui neque, eget pellentesque odio
-              fringilla eu. Nullam blandit mattis fermentum.
-              Nam in elit quis augue tempus volutpat non
-              quis lectus. Suspendisse bibendum non mi sit
-              amet fringilla. Curabitur nec magna dui. Donec
-              tempus, odio eget hendrerit scelerisque, diam
-              tellus hendrerit eros, vel tincidunt justo
-              velit non velit. Integer lacinia, nunc
-              bibendum ornare pharetra, urna lorem convallis
-              tortor, eget malesuada urna lacus eget ipsum.
-              Proin ut eros convallis neque pellentesque
-              vulputate. Aliquam erat volutpat. Sed
-              hendrerit gravida elit, vitae cursus nisi.
-              Aliquam porttitor mauris eget neque mollis
-              dictum.
+              {product.desc}
             </p>
             <span
               className="block text-xs font-medium mt-2 text-blue-700 hover:underline hover:cursor-pointer"
@@ -337,17 +351,18 @@ const ProductDetails = () => {
 
           {/* specifications */}
           <Tabs.Panel label="Specifications">
-            <table className="table-auto w-fit border-collapse">
+            <table className="table-auto w-full  border-collapse">
               <tbody>
-                {[...Array(10)].map((_, i) => (
-                  <tr key={i} className="odd:bg-[#fafbfd]">
+                {product.specifications?.map((spec) => (
+                  <tr
+                    key={`spec-${Math.random()}`}
+                    className="odd:bg-[#fafbfd]"
+                  >
                     <td className="border border-gray-100 min-w-[80px] md:min-w-[150px] py-2 px-3 text-xs md:text-sm text-gray-700">
-                      Title
+                      {spec.key}
                     </td>
                     <td className="border border-gray-100 py-2 px-3 text-xs md:text-sm text-gray-700 whitespace-normal">
-                      Shirt 1 men's fetions Shirt 1 men's
-                      fetions Shirt 1 men's fetions Shirt 1
-                      men's fetions
+                      {spec.val}
                     </td>
                   </tr>
                 ))}

@@ -1,8 +1,10 @@
 const Button = ({
   children,
+  type = 'button',
   onClick,
   className,
   variant = 'primary',
+  ...props
 }) => {
   const variants = {
     primary: `bg-blue-500 text-white hover:bg-blue-600 ring-blue-500`,
@@ -11,9 +13,13 @@ const Button = ({
     success: `bg-green-500 text-white hover:bg-green-600 ring-green-500`,
   };
 
-  const classes = `px-4 py-2 rounded-md flex items-center gap-2 focus:ring-2 ring-offset-2 ${variants[variant]} ${className}`;
+  const classes = `px-4 py-2 rounded-md flex items-center justify-center gap-2 focus:ring-2 ring-offset-2 ${variants[variant]} ${className}`;
 
-  return <button className={classes}>{children}</button>;
+  return (
+    <button type={type} className={classes} onClick={onClick} {...props}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;

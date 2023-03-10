@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom'
-import Hero from '../components/Hero'
-import Products from '../components/Products'
-import Section from '../components/Section'
-import Layout from '../layout/Layout'
+import { Link } from 'react-router-dom';
+import Hero from '../components/Hero';
+import Products from '../components/Products';
+import Section from '../components/Section';
+import Layout from '../layout/Layout';
 
 const FourImageCard = ({ title, images, path = '/' }) => {
   return (
     <Link to={path} className="cursor-default">
       <div className="p-5 bg-[#f7f8fa] hover:bg-[#f2f5f7] rounded-lg h-full">
-        <div className="text-xs sm:text-sm md:text-base font-bold">{title}</div>
+        <div className="text-xs sm:text-sm md:text-base font-bold">
+          {title}
+        </div>
         <div className="grid grid-cols-2 gap-4 py-3">
           {images.map((image, index) => (
             <div className="col-span-1" key={index}>
@@ -18,8 +20,8 @@ const FourImageCard = ({ title, images, path = '/' }) => {
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 const Home = () => {
   return (
@@ -35,7 +37,12 @@ const Home = () => {
               <FourImageCard
                 path="/"
                 title={"Man's Fashion"}
-                images={['/images/watch.png', '/images/t-shirt.png', '/images/shoes-1.png', '/images/sun-glass-1.png']}
+                images={[
+                  '/images/watch.png',
+                  '/images/t-shirt.png',
+                  '/images/shoes-1.png',
+                  '/images/sun-glass-1.png',
+                ]}
               />
             </div>
             <div className="col-span-6 md:col-span-4 lg:col-span-3">
@@ -82,9 +89,14 @@ const Home = () => {
               <div className="col-span-8 lg:col-span-4">
                 <Link to="/" className="cursor-default">
                   <div className="bg-[#f7f8fa] hover:bg-[#f2f5f7] rounded-lg relative group overflow-hidden">
-                    <img src="/images/tree-table-1.png" alt="" />
+                    <img
+                      src="/images/tree-table-1.png"
+                      alt=""
+                    />
                     <div className="absolute top-0 left-0 w-full h-full group-hover:bg-black/30 p-2 md:p-4">
-                      <div className="text-white text-sm sm:text-sm md:text-base font-bold">Home & Garden</div>
+                      <div className="text-white text-sm sm:text-sm md:text-base font-bold">
+                        Home & Garden
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -95,7 +107,10 @@ const Home = () => {
                   <div className="bg-[#f7f8fa] hover:bg-[#f2f5f7] rounded-lg group relative overflow-hidden">
                     <img src="/images/makup.png" alt="" />
                     <div className="absolute top-0 left-0 w-full h-full group-hover:bg-black/30 p-2 md:p-4">
-                      <div className="text-white text-xs sm:text-sm md:text-base font-bold"> Beauty & Health</div>
+                      <div className="text-white text-xs sm:text-sm md:text-base font-bold">
+                        {' '}
+                        Beauty & Health
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -104,9 +119,15 @@ const Home = () => {
               <div className="col-span-4 lg:col-span-2 h-full">
                 <Link to="/" className="cursor-default">
                   <div className="bg-[#f7f8fa] relative hover:bg-[#f2f5f7] group rounded-lg overflow-hidden">
-                    <img src="/images/furniture.png" alt="" />
+                    <img
+                      src="/images/furniture.png"
+                      alt=""
+                    />
                     <div className="absolute top-0 left-0 w-full h-full group-hover:bg-black/30 p-2 md:p-4">
-                      <div className="text-white text-xs sm:text-sm md:text-base font-bold"> Furniture</div>
+                      <div className="text-white text-xs sm:text-sm md:text-base font-bold">
+                        {' '}
+                        Furniture
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -118,7 +139,9 @@ const Home = () => {
                   <div className="bg-[#f7f8fa] hover:bg-[#f2f5f7] relative group rounded-lg overflow-hidden">
                     <img src="/images/food.png" alt="" />
                     <div className="absolute top-0 left-0 w-full h-full group-hover:bg-black/30 p-2 md:p-4">
-                      <div className="text-white text-xs sm:text-sm md:text-base font-bold">Fresh Food</div>
+                      <div className="text-white text-xs sm:text-sm md:text-base font-bold">
+                        Fresh Food
+                      </div>
                     </div>
                   </div>
                 </Link>
@@ -134,7 +157,7 @@ const Home = () => {
         <Products />
       </Section>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
